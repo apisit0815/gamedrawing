@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Example</title>
+</head>
+<body>
+    <div id="panel"></div>
+    <input type="number" id="frame-index" placeholder="Enter frame index" />
+    <button id="button">Draw Canvas</button>
+    
+    <script>
+        // ฟังก์ชันสำหรับสร้าง canvas และวาดสี่เหลี่ยม
+        function drawPanel() {
+            // ตรวจสอบว่ามี canvas อยู่แล้วหรือไม่ ถ้ามีให้ลบออกก่อน
+            var existingCanvas = document.getElementById("myCanvas");
+            if (existingCanvas) {
+                existingCanvas.remove();
+            }
+
+            // สร้าง canvas ใหม่
+            var panel = document.getElementById("panel");
+            var canvas = document.createElement("canvas");
+            canvas.id = "myCanvas"; // ตั้ง id ให้ canvas
+            canvas.width = 300;
+            canvas.height = 200;
+            panel.appendChild(canvas);
+
+            // วาดสี่เหลี่ยมสีฟ้าบน canvas
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "blue";
+            ctx.fillRect(50, 50, 100, 100);
+        }
+
+        // จัดการกับการกดปุ่ม
+        document.getElementById("button").addEventListener("click", function () {
+            drawPanel();
+
+            // วาดสี่เหลี่ยมสีแดงตาม frame index ที่กำหนด
+            var frameIndex = parseInt(document.getElementById("frame-index").value);
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            // วาดสี่เหลี่ยมสีแดงโดยเลื่อนตำแหน่งตาม frame index
+            ctx.fillStyle = "red";
+            ctx.fillRect(50 + (frameIndex * 10), 50, 100, 100);
+        });
+
+        // ฟังก์ชันตัวอย่างสำหรับการแปลงตำแหน่งของ frame (ไม่ได้นำไปใช้จริงในโค้ดนี้)
+        function getFrame(frameIndex) {
+            var frame = document.getElementById("frame");
+            if (frame) {
+                return frame.style.transform + " translateX(-" + (frameIndex * 10) + "px)";
+            }
+            return "";
+        }
+    </script>
+</body>
+</html>
